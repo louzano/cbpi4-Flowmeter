@@ -43,8 +43,8 @@ class Flowmeter_Config(CBPiExtension):
         plugin = await self.cbpi.plugin.load_plugin_list("cbpi4-Flowmeter")
         self.version=plugin[0].get("Version","0.0.0")
         self.name=plugin[0].get("Name","cbpi4-Flowmeter")
-
-        self.flowmeter_update = self.cbpi.config.get(self.name"_update", None)
+ 
+       self.flowmeter_update = self.cbpi.config.get(self.name + "_update", None)
 
         unit = self.cbpi.config.get("flowunit", None)
         if unit is None:
