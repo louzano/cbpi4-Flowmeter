@@ -44,7 +44,7 @@ class Flowmeter_Config(CBPiExtension):
         self.version=plugin[0].get("Version","0.0.0")
         self.name=plugin[0].get("Name","cbpi4-Flowmeter")
 
-        self.flowmeter_update = self.cbpi.config.get(self.name+"_update", None)
+        self.flowmeter_update = self.cbpi.config.get(self.name"_update", None)
 
         unit = self.cbpi.config.get("flowunit", None)
         if unit is None:
@@ -190,7 +190,7 @@ class FlowSensor(CBPiSensor):
         super(FlowSensor, self).__init__(cbpi, id, props)
         self.value = 0
         self.fms = dict()
-        self.gpio=self.props.get("GPIO",21)
+        self.gpio=self.props.get("GPIO",0)
         self.sensorShow=self.props.get("Display","Total Volume")
         self.hertzProp=self.props.get("Hertz", 7.5)
 
