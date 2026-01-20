@@ -143,7 +143,7 @@ class MQTTFlowSensor(CBPiSensor):
     @action(key="Reset Sensor", parameters=[])
     async def Reset(self, **kwargs):
         await self.reset()
-        print("RESET FLOWSENSOR")
+        print("LEITURA REINICIADA")
 
     async def on_message(self, message):
         val = json.loads(message)
@@ -180,9 +180,9 @@ class MQTTFlowSensor(CBPiSensor):
             except asyncio.CancelledError:
                 pass
 
-@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO that is used by the Flowsensor"),
-            Property.Select(label="Display", options=["Total volume", "Flow, unit/s"],description="Define se irá exibir o volume total ou fluxo em tempo real"),
-            Property.Number(label="Hertz", configurable=True, description="Here you can adjust the freequency for the flowmeter [Hertz, default is 7.5]. With this value you can calibrate the sensor.")])
+@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="A GPIO utilizada para conectar o fio de sinal do sensor"),
+            Property.Select(label="Formato da leitura", options=["Total volume", "Flow, unit/s"],description="Define se irá exibir o volume total ou fluxo em tempo real"),
+            Property.Number(label="Frequência", configurable=True, description="Define a frequência em hertz, o padrão é 7.5 e será usado para calibrar o seu sensor de acordo com a pressão de entrada.")])
 
 class FlowSensor(CBPiSensor):
     
@@ -190,7 +190,7 @@ class FlowSensor(CBPiSensor):
         super(FlowSensor, self).__init__(cbpi, id, props)
         self.value = 0
         self.fms = dict()
-        self.gpio=self.props.get("GPIO",0)
+        self.gpio=self.props.get("GPIO",21)
         self.sensorShow=self.props.get("Display","Total Volume")
         self.hertzProp=self.props.get("Hertz", 7.5)
 
@@ -205,7 +205,7 @@ class FlowSensor(CBPiSensor):
     @action(key="Reset Sensor", parameters=[])
     async def Reset(self, **kwargs):
         self.reset()
-        print("RESET FLOWSENSOR")
+        print("LEITURA REINICIADA")
   
 
     def get_unit(self):
@@ -266,8 +266,8 @@ class FlowSensor(CBPiSensor):
 
 ##########
 
-@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO that is used by the Flowsensor"),
-            Property.Number(label="impulsesPerVolumeUnit", configurable=True, description="Here you need to configure how many impulses per Unit of measurement the sensor is sending. ")])
+@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO uqe recebe o sinal do sensor"),
+            Property.Number(label="impulsesPerVolumeUnit", configurable=True, description="Defina quantas unidades serão contadas a cada impulso.")])
 
 class VolumeSensor(CBPiSensor):
     
