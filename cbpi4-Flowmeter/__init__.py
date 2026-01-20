@@ -181,7 +181,7 @@ class MQTTFlowSensor(CBPiSensor):
                 pass
 
 @parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO that is used by the Flowsensor"),
-            Property.Select(label="Display", options=["Total volume", "Flow, unit/s"],description="Defines if total volume or volume flow is displayed"),
+            Property.Select(label="Display", options=["Total volume", "Flow, unit/s"],description="Define se irá exibir o volume total ou fluxo em tempo real"),
             Property.Number(label="Hertz", configurable=True, description="Here you can adjust the freequency for the flowmeter [Hertz, default is 7.5]. With this value you can calibrate the sensor.")])
 
 class FlowSensor(CBPiSensor):
