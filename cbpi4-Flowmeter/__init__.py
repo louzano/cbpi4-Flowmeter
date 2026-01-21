@@ -28,7 +28,8 @@ try:
     #import GPIOZERO as GPIO
     #mode = GPIO.getmode()
     #if (mode == None):
-        GPIO.setmode(GPIO.BCM)
+ #ED alterado de GPIO para 21 na linha abaixo   
+        GPIO.setmode(21)
 
 except Exception as e:
     print(e)
@@ -191,7 +192,8 @@ class FlowSensor(CBPiSensor):
         super(FlowSensor, self).__init__(cbpi, id, props)
         self.value = 0
         self.fms = dict()
-        self.gpio=self.props.get("GPIO",0)
+        #Ed Alterado de 0 para 21 na linha abaixo
+        self.gpio=self.props.get("GPIO",21)
         self.sensorShow=self.props.get("Display","Total Volume")
         self.hertzProp=self.props.get("Hertz", 7.5)
 
