@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 try:
     #import RPi.GPIO as GPIO
-    import rpi.lgpio as GPIO
+    import gpiozero as GPIO
     mode = GPIO.getmode()
     if (mode == None):
     GPIO.setmode(GPIO.BCM)
