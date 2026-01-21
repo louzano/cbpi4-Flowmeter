@@ -27,7 +27,7 @@ try:
     import RPi.GPIO as GPIO
     mode = GPIO.getmode()
     if (mode == None):
-    GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BCM)
 
 except Exception as e:
     print(e)
@@ -180,9 +180,9 @@ class MQTTFlowSensor(CBPiSensor):
             except asyncio.CancelledError:
                 pass
 
-@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO que está conectado o sensorr"),
-            Property.Select(label="Display", options=["Total volume", "Flow, unit/s"],description="Define se o volume total ou a vazão volumétrica será exibida."),
-            Property.Number(label="Hertz", configurable=True, description="Aqui você pode ajustar a frequência do medidor de vazão [Hertz, o padrão é 7,5]. Com esse valor, você pode calibrar o sensor.")])
+@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO that is used by the Flowsensor"),
+            Property.Select(label="Display", options=["Total volume", "Flow, unit/s"],description="Defines if total volume or volume flow is displayed"),
+            Property.Number(label="Hertz", configurable=True, description="Here you can adjust the freequency for the flowmeter [Hertz, default is 7.5]. With this value you can calibrate the sensor.")])
 
 class FlowSensor(CBPiSensor):
     
@@ -266,8 +266,8 @@ class FlowSensor(CBPiSensor):
 
 ##########
 
-@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO que é usado pelo sensor de fluxo"),
-            Property.Number(label="impulsesPerVolumeUnit", configurable=True, description="Aqui você precisa configurar quantos impulsos por unidade de medida o sensor está enviando.")])
+@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO that is used by the Flowsensor"),
+            Property.Number(label="impulsesPerVolumeUnit", configurable=True, description="Here you need to configure how many impulses per Unit of measurement the sensor is sending. ")])
 
 class VolumeSensor(CBPiSensor):
     
@@ -275,7 +275,7 @@ class VolumeSensor(CBPiSensor):
         super(VolumeSensor, self).__init__(cbpi, id, props)
         self.value = 0
         self.impulses = 0
-        self.liter = 0  
+        self.liter = 0
         self.gpio = self.props.get("GPIO",0)
         self.IperL = self.props.get("impulsesPerVolumeUnit", 450)
         self.LperI = float(1.0) / float(self.IperL)
@@ -321,10 +321,10 @@ class VolumeSensor(CBPiSensor):
 ###########################################
 
 
-@parameters([Property.Number(label="Volume", description="Limite de volume para esta etapa", configurable=True),
-             Property.Actor(label="Actor",description="Atuador para ativar e desativar o fluxo de líquido"),
+@parameters([Property.Number(label="Volume", description="Volume limit for this step", configurable=True),
+             Property.Actor(label="Actor",description="Actor to switch media flow on and off"),
              Property.Sensor(label="Sensor"),
-             Property.Select(label="Reset", options=["Yes","No"],description="Reinicie o valor de vazão quando terminar.")])
+             Property.Select(label="Reset", options=["Yes","No"],description="Reset Flowmeter when done")])
 
 class FlowStep(CBPiStep):
 
