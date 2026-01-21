@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 import os
 from aiohttp import web
@@ -27,7 +26,7 @@ try:
     import RPi.GPIO as GPIO
     mode = GPIO.getmode()
     if (mode == None):
-        GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BOARD)
 
 except Exception as e:
     print(e)
