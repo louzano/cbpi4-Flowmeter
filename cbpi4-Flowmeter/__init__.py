@@ -279,7 +279,8 @@ class VolumeSensor(CBPiSensor):
         self.value = 0
         self.impulses = 0
         self.liter = 0
-        self.gpio = self.props.get("GPIO",0)
+     #Ed alterado 0 para 21 na linha abaixo   
+        self.gpio = self.props.get("GPIO",21)
         self.IperL = self.props.get("impulsesPerVolumeUnit", 450)
         self.LperI = float(1.0) / float(self.IperL)
 
