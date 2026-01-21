@@ -23,11 +23,11 @@ import json
 logger = logging.getLogger(__name__)
 
 try:
-    import RPi.GPIO as GPIO
+    #import RPi.GPIO as GPIO
     #import RPi.LGPIO as GPIO
     #import GPIOZERO as GPIO
-    mode = GPIO.getmode()
-    if (mode == None):
+    #mode = GPIO.getmode()
+    #if (mode == None):
         GPIO.setmode(GPIO.BCM)
 
 except Exception as e:
@@ -181,7 +181,7 @@ class MQTTFlowSensor(CBPiSensor):
             except asyncio.CancelledError:
                 pass
 
-@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO that is used by the Flowsensor"),
+@parameters([Property.Select(label="GPIO", options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],description="GPIO que está conectado o sensorr"),
             Property.Select(label="Display", options=["Total volume", "Flow, unit/s"],description="Define se o volume total ou a vazão volumétrica será exibida."),
             Property.Number(label="Hertz", configurable=True, description="Aqui você pode ajustar a frequência do medidor de vazão [Hertz, o padrão é 7,5]. Com esse valor, você pode calibrar o sensor.")])
 
