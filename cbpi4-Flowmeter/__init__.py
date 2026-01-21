@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 import os
 from aiohttp import web
@@ -189,8 +190,7 @@ class FlowSensor(CBPiSensor):
         super(FlowSensor, self).__init__(cbpi, id, props)
         self.value = 0
         self.fms = dict()
-        #Ed Alterado de 0 para 21 na linha abaixo
-        self.gpio=self.props.get("GPIO",21)
+        self.gpio=self.props.get("GPIO",0)
         self.sensorShow=self.props.get("Display","Total Volume")
         self.hertzProp=self.props.get("Hertz", 7.5)
 
