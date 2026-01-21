@@ -26,7 +26,7 @@ try:
     import RPi.GPIO as GPIO
     mode = GPIO.getmode()
     if (mode == None):
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
 
 except Exception as e:
     print(e)
