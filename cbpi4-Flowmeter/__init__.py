@@ -24,10 +24,10 @@ logger = logging.getLogger(__name__)
 
 try:
     #import RPi.GPIO as GPIO
-    import LGPIO as GPIO
+    import rpi-lgpio as GPIO
     #import GPIOZERO as GPIO
-    #mode = GPIO.getmode()
-    #if (mode == None):
+    mode = GPIO.getmode()
+    if (mode == None):
  #ED alterado de GPIO para 21 na linha abaixo   
         GPIO.setmode(21)
 
