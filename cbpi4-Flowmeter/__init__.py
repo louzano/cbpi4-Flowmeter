@@ -1,5 +1,3 @@
-
-
 # -*- coding: utf-8 -*-
 import os
 from aiohttp import web
@@ -26,7 +24,8 @@ logger = logging.getLogger(__name__)
 
 try:
     #import RPi.GPIO as GPIO
-    import rpi.lgpio as GPIO
+    #import RPi.LGPIO as GPIO
+    import GPIOZERO as GPIO
     mode = GPIO.getmode()
     if (mode == None):
         GPIO.setmode(GPIO.BCM)
