@@ -1,72 +1,65 @@
-# CraftBeerPi4 FLowmeter Sensor / Step Plugin
+# Sensor de fluxo e volume CBPI4
 
-*For recently added VolumeSensor functionality scroll down*
+Este plugin foi portado da versão CBPI3 para o CBPI4 (https://github.com/nanab/Flowmeter)
 
-This plugin has been ported from the craftbeerpi3 plugin version (https://github.com/nanab/Flowmeter)
+O plugin inclui um sensor com ação para reiniciá-lo e uma etapa personalizada.
+Use um resistor de 10k ohms no pino de sinal do sensor para proteger seu Raspberry Pi ou conecte o sensor de fluxo tipo Hall (YF-201 é recomendado) à sua placa de expansão Craftbeerpi nas portas do medidor de fluxo.
 
-The plugin includes sensor with action to reset the sensor and a custom step.
-Use a 10k ohm resistor on sensors signal pin to protect your Pi or connect the hall type flow sensor to your Craftbeerpi extension board at the flowmeter ports.
+Conecte o sensor ao Raspberry Pi:
+Vermelho -> 5V.
+Preto -> GND.
+Amarelo -> resistor de 10k ohms -> pino GPIO. (ou dados na placa de expansão. Nenhum resistor extra é necessário aqui)
 
-Wire the sensor to the pi:
-Red -> 5v.
-Black -> GND.
-Yellow -> 10k ohm resistor -> GPIO pin. (or data on the extension board. No extra resistor required here)
+- Instalação testada no CBPI 4 V4.7.1 - Codename: Winter Bock || GUIversion: 0.5.0 com SO Trixie
+- Instalação: pipx runpip cbpi4 uninstall cbpi4-flowmeter
 
-- Installation: 
-    - pypi release: sudo pip3 install cbpi4-Flowmeter
-    - PiBrewing release: sudo pip3 install https://github.com/avollkopf/cbpi4-Flowmeter/archive/main.zip
-	- prash3r VolumeSensor testing branch: sudo pip3 install https://github.com/prash3r/cbpi4-Flowmeter/archive/VolumeSensor.zip
-
-- Sensor Usage:
-    - On the settings page, choose a unit for the Volume (e.g. L, qt, gal, ...)
-    - Add Sensor under Hardware and choose Flowmeter as Type
-    - Several parameters can be set:
-        - GPIO defines the GPIO that is used for the signal of the sensor (connected to the yellow cable)
-        - Display defines if the total volume or the flow per second is displayed
-        - Hertz: Here you need to set the frequency of your sensor (Singals per Liter per minute). This should be documented in the sensor datasheet
+- Uso do sensor:
+- Na página de configurações, escolha uma unidade para o volume (por exemplo, L, qt, gal, ...)
+- Adicione o sensor em Hardware e escolha Fluxômetro como Tipo
+- Vários parâmetros podem ser configurados:
+- GPIO: define o GPIO usado para o sinal do sensor (conectado ao cabo amarelo)
+- Display: define se o volume total ou a vazão por segundo será exibido
+- Hertz: Aqui você precisa definir a frequência do seu sensor (Sinais por segundo). Isso deve estar documentado na folha de dados do sensor, como base use 7.5.
 
 ![Flowsensor Settings](https://github.com/avollkopf/cbpi4-Flowmeter/blob/main/SensorConfig.png?raw=true)
 
-
-- Once configured, you need to add the sensor to the Dashboard.
-- Please select Yes for Action as this will add an additional menu on the right side of the sensor to reset the sensor to 0
+- Após a configuração, você precisa adicionar o sensor ao Painel.
+- Selecione "Sim" para a ação, pois isso adicionará um menu adicional no lado direito do sensor para redefini-lo para 0.
 
 ![Flowsensor Action Setting](https://github.com/avollkopf/cbpi4-Flowmeter/blob/main/SensorActionSetting.png?raw=true)
 ![Flowsensor Action Button](https://github.com/avollkopf/cbpi4-Flowmeter/blob/main/SensorActionButton.png?raw=true)
 
     
-- When you press the menu button on the right side of the sensor, a menu wil show up where you can reset the sensor.
-
+- Ao pressionar o botão de menu no lado direito do sensor, um menu será exibido, onde você poderá redefinir o sensor.
+- 
 ![Flowsensor Action Menu](https://github.com/avollkopf/cbpi4-Flowmeter/blob/main/SensorAction.png?raw=true)
 
-- Flowstep Usage:
-    - The plugin provides a step where you can define a volume that should flow while the step is active.
-    - You need to select your flowsensor as sensor.
-    - An actor has to be defined that triggers the start and stop of the flow (e.g. magnetic valve)
-    - You need to enter the volume that should flow while the step is active
-    - When the step starts, the sensor will be set to 0.
-    - You can select if the sensor should be set to 0 once the step is completed.
-
+Utilização do Flowstep: 
+ - O plugin fornece uma etapa onde você pode definir um volume que deve fluir enquanto a etapa estiver ativa.
+ - Você precisa selecionar seu sensor de fluxo como sensor.
+ - Um atuador deve ser definido para acionar o início e a parada da etapa (por exemplo, uma válvula magnética).
+ - Você precisa inserir o volume que deve fluir enquanto a etapa estiver ativo.
+ - Quando a etapa começar, o sensor será definido como 0.
+ - Você pode selecionar se o sensor deve ser definido como 0 após a conclusão da etapa.
+   
 ![Flowstep](https://github.com/avollkopf/cbpi4-Flowmeter/blob/main/FlowStep.png?raw=true)
 
-## VolumeSensor functionality
+## Funcionalidades do sensor de fluxo
 
-The recently added *very simple* VolumeSensor functionality can be used like this:
-
-Parameters:
- - GPIO: The GPIO Pin number in BCM numbering
- - impulsesPerVolumeUnit: the amount of impulses that should be displaying the volume of 1 of whatever Unit. This is unit agnostic. Just use the same unit in your FlowStep if you use it.
-
-The VolumeSensor does nothing more then to count impulses and calculate the volume the number of impulses represent.
-
-Actions:
- - Reset Sensor: resets the countet impulses and volume to 0
- - Fake Impulse: fakes the detection of an impulse (i used this for testing because i dont have a flow sensor)
-
-
+A funcionalidade *muito simples* do Sensor de Volume, adicionada recentemente, pode ser usada da seguinte forma: 
+Parâmetros: 
+ - GPIO: O número do pino GPIO na numeração BCM
+ - impulsesPerVolumeUnit: a quantidade de impulsos que devem exibir o volume de 1 unidade. Isso é independente da unidade.
+ - Basta usar a mesma unidade na etapa, se você a utiliza.
+ - O Sensor de Volume apenas conta os impulsos e calcula o volume que o número de impulsos representa.
+ 
+Ações: 
+ - Reset Sensor: redefine a contagem de impulsos e o volume para 0
+ - Fake Impulse: simula a detecção de um impulso (usado para teste se não tiver um sensor de fluxo)
 
 ## Changelog:
 
+- 21.01.26: (0.0.7) Tradução PT-BR e ajuste para Trixie
 - 10.06.23: (0.0.6) bump version to release
 - 14.05.23: (0.0.6.rc1) added simple VolumeSensor and cbpi4 requirement
 - 14.04.23: (0.0.5.a2) fixed bug in parameter generation
