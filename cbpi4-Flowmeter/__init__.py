@@ -23,7 +23,7 @@ import json
 logger = logging.getLogger(__name__)
 
 try:
-    import RPi.LGPIO as GPIO
+    import RPi.GPIO as GPIO
     mode = GPIO.getmode()
     if (mode == None):
     GPIO.setmode(GPIO.BCM)
